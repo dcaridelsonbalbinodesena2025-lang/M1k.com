@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>K.C.M   ELITE V13 - LISTA COMPLETA</title>
+    <title>K.C.M ELITE V13 - STATUS MERCADO</title>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <style>
         :root { 
@@ -16,12 +16,17 @@
         body { background: #05070a; color: white; font-family: 'Segoe UI', sans-serif; display: flex; align-items: center; justify-content: center; min-height: 90vh; margin: 0; overflow: hidden; }
         #celular { background: #111418; width: 355px; height: 660px; border-radius: 45px; border: 8px solid #2b2f36; padding: 15px; box-shadow: 0 0 60px rgba(0, 71, 171, 0.5); display: flex; flex-direction: column; position: relative; }
         
-        .header { text-align: center; margin-top: 10px; margin-bottom: 15px; }
+        .header { text-align: center; margin-top: 10px; margin-bottom: 5px; }
         .logo-container { 
             display: inline-block; font-size: 42px; font-weight: 900; color: #1e90ff; text-transform: uppercase; font-style: italic; letter-spacing: -2px;
             text-shadow: -2px -2px 0 #fff, 2px -2px 0 #fff, -2px 2px 0 #fff, 2px 2px 0 #fff, 0 0 20px rgba(30, 144, 255, 0.9), 0 0 40px rgba(30, 144, 255, 0.5);
         }
         .logo-icon { color: white; margin: 0 2px; font-style: normal; text-shadow: 0 0 15px #fff; }
+
+        /* ESTILO DO STATUS DO MERCADO */
+        #status-box { text-align: center; font-size: 11px; font-weight: bold; margin-bottom: 10px; letter-spacing: 1px; }
+        .aberto { color: var(--neon-green); text-shadow: 0 0 5px var(--neon-green); }
+        .otc { color: var(--gale); text-shadow: 0 0 5px var(--gale); }
 
         .termometro-container { margin: 8px 0; background: #222; height: 35px; border-radius: 50px; position: relative; overflow: hidden; border: 2px solid #444; }
         #barra-pressao { height: 100%; width: 50%; transition: 0.3s; display: flex; align-items: center; justify-content: center; font-weight: 900; font-size: 18px; color: #000; }
@@ -53,6 +58,8 @@
             <div class="logo-container">K.C<span class="logo-icon">📈</span>M</div>
         </div>
 
+        <div id="status-box"><span id="mercado-label">ANALISANDO STATUS...</span></div>
+
         <div class="termometro-container"><div id="barra-pressao">50%</div></div>
         <div id="visor-velas"></div>
         <div id="balao-instrucao" style="background: #222; color: #555;">ANALISANDO...</div>
@@ -81,30 +88,15 @@
                     <option value="frxGBPUSD">GBP / USD</option>
                     <option value="frxUSDJPY">USD / JPY</option>
                     <option value="frxAUDUSD">AUD / USD</option>
-                    <option value="frxUSDCAD">USD / CAD</option>
-                    <option value="frxUSDCHF">USD / CHF</option>
-                    <option value="frxNZDUSD">NZD / USD</option>
                 </optgroup>
                 <optgroup label="CRUZADOS / OTC">
                     <option value="frxUSDBRL">USD / BRL (OTC)</option>
                     <option value="frxEURGBP">EUR / GBP</option>
                     <option value="frxEURJPY">EUR / JPY</option>
-                    <option value="frxGBPJPY">GBP / JPY</option>
-                    <option value="frxAUDJPY">AUD / JPY</option>
-                    <option value="frxEURAUD">EUR / AUD</option>
-                    <option value="frxGBPAUD">GBP / AUD</option>
-                    <option value="frxAUDCAD">AUD / CAD</option>
-                    <option value="frxEURNZD">EUR / NZD</option>
-                    <option value="frxCADJPY">CAD / JPY</option>
                 </optgroup>
                 <optgroup label="ÍNDICES VOLATILIDADE">
                     <option value="R_10">VOLATILITY 10</option>
-                    <option value="R_25">VOLATILITY 25</option>
-                    <option value="R_50">VOLATILITY 50</option>
-                    <option value="R_75">VOLATILITY 75</option>
                     <option value="R_100">VOLATILITY 100</option>
-                    <option value="1HZ10V">VOLATILITY 10 (1s)</option>
-                    <option value="1HZ100V">VOLATILITY 100 (1s)</option>
                 </optgroup>
             </select>
             <div class="assinatura">Aridelson B.</div>
@@ -123,6 +115,21 @@
             options: { responsive: true, maintainAspectRatio: false, scales: { y: { display: false }, x: { display: false } }, plugins: { legend: { display: false } } }
         });
 
+        function checarMercado(ativo) {
+            const label = document.getElementById('mercado-label');
+            const dia = new Date().getDay(); // 0 = Dom, 6 = Sáb
+            const isWeekend = (dia === 0 || dia === 6);
+            const isOTCAtivo = ativo.includes('BRL') || ativo.includes('R_') || ativo.includes('1HZ');
+
+            if (isWeekend || isOTCAtivo) {
+                label.innerHTML = "MERCADO OTC ⚙️";
+                label.className = "otc";
+            } else {
+                label.innerHTML = "MERCADO ABERTO 🔓";
+                label.className = "aberto";
+            }
+        }
+
         function tocarSom(tipo) {
             const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
             const g = audioCtx.createGain(); const o = audioCtx.createOscillator();
@@ -134,6 +141,7 @@
         }
 
         function conectar(ativo) {
+            checarMercado(ativo);
             if (socket) socket.close();
             socket = new WebSocket('wss://ws.binaryws.com/websockets/v3?app_id=1089');
             socket.onopen = () => socket.send(JSON.stringify({ ticks: ativo }));
