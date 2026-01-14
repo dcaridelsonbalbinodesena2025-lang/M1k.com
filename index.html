@@ -153,7 +153,7 @@
         function processarSinalRusso(pct, segs) {
             const bSinal = document.getElementById('balao-instrucao'), seta = document.getElementById('seta-indicadora');
             
-            if (pct >= 70) { // Estratégia de Compra 80%
+            if (pct >= 80) { // Estratégia de Compra 80%
                 ultimoSinal = "CALL"; 
                 bSinal.style.background = "var(--neon-green)"; 
                 bSinal.style.color = "#000";
@@ -161,7 +161,7 @@
                 seta.innerText = "⬆️"; seta.style.display = "block"; aguardando = true;
                 if (segs === 58 && !tocadoAlerta) { tocarSom('alerta'); tocadoAlerta = true; }
             } 
-            else if (pct <= 30) { // Estratégia de Venda (20% indica 80% de força vendedora)
+            else if (pct <= 20) { // Estratégia de Venda (20% indica 80% de força vendedora)
                 ultimoSinal = "PUT"; 
                 bSinal.style.background = "var(--neon-red)"; 
                 bSinal.style.color = "#000";
