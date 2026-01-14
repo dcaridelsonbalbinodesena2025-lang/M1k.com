@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>K.C.M ELITE V13 - FULL ASSETS</title>
+    <title>K.C.M   ELITE V13 - LISTA COMPLETA</title>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <style>
         :root { 
@@ -13,47 +13,49 @@
             --royal-blue: #0047AB;
             --gale: #f0b90b;
         }
-        body { background: #05070a; color: white; font-family: 'Segoe UI', sans-serif; display: flex; align-items: center; justify-content: center; min-height: 100vh; margin: 0; overflow: hidden; }
-        #celular { background: #111418; width: 355px; height: 675px; border-radius: 45px; border: 8px solid #2b2f36; padding: 15px; box-shadow: 0 0 60px rgba(0, 71, 171, 0.5); display: flex; flex-direction: column; position: relative; }
+        body { background: #05070a; color: white; font-family: 'Segoe UI', sans-serif; display: flex; align-items: center; justify-content: center; min-height: 90vh; margin: 0; overflow: hidden; }
+        #celular { background: #111418; width: 355px; height: 760px; border-radius: 45px; border: 8px solid #2b2f36; padding: 15px; box-shadow: 0 0 60px rgba(0, 71, 171, 0.5); display: flex; flex-direction: column; position: relative; }
         
-        .header { text-align: center; margin-bottom: 5px; }
-        .logo-text { font-size: 35px; font-weight: 900; color: var(--royal-blue); text-shadow: 0 0 15px var(--royal-blue); font-style: italic; margin: 0; }
-        
+        .header { text-align: center; margin-top: 10px; margin-bottom: 15px; }
+        .logo-container { 
+            display: inline-block; font-size: 42px; font-weight: 900; color: #1e90ff; text-transform: uppercase; font-style: italic; letter-spacing: -2px;
+            text-shadow: -2px -2px 0 #fff, 2px -2px 0 #fff, -2px 2px 0 #fff, 2px 2px 0 #fff, 0 0 20px rgba(30, 144, 255, 0.9), 0 0 40px rgba(30, 144, 255, 0.5);
+        }
+        .logo-icon { color: white; margin: 0 2px; font-style: normal; text-shadow: 0 0 15px #fff; }
+
         .termometro-container { margin: 8px 0; background: #222; height: 35px; border-radius: 50px; position: relative; overflow: hidden; border: 2px solid #444; }
         #barra-pressao { height: 100%; width: 50%; transition: 0.3s; display: flex; align-items: center; justify-content: center; font-weight: 900; font-size: 18px; color: #000; }
-
-        #visor-velas { height: 60px; background: rgba(0,0,0,0.4); border-radius: 20px; display: flex; gap: 8px; align-items: center; justify-content: center; margin-bottom: 10px; }
+        
+        #visor-velas { height: 55px; background: rgba(0,0,0,0.4); border-radius: 20px; display: flex; gap: 8px; align-items: center; justify-content: center; margin-bottom: 10px; }
         .barra { width: 14px; height: 28px; border-radius: 3px; }
+        .verde { background: var(--neon-green); box-shadow: 0 0 10px var(--neon-green); }
+        .vermelha { background: var(--neon-red); box-shadow: 0 0 10px var(--neon-red); }
 
         #balao-instrucao { padding: 18px; border-radius: 15px; font-size: 22px; font-weight: 900; text-align: center; width: 100%; box-sizing: border-box; margin-bottom: 8px; border: 2px solid rgba(255,255,255,0.1); }
-        
         #timer { font-size: 90px; font-weight: bold; margin: 0; line-height: 0.8; text-align: center; }
         #preco { font-size: 28px; color: var(--gale); font-weight: bold; font-family: monospace; text-align: center; margin-bottom: 8px; }
-
         #grafico-container { height: 110px; background: rgba(0,0,0,0.2); border-radius: 15px; padding: 5px; position: relative; }
-        #seta-indicadora { position: absolute; top: 5px; right: 15px; font-size: 45px; display: none; text-shadow: 0 0 10px rgba(0,0,0,0.8); }
+        #seta-indicadora { position: absolute; top: 5px; right: 15px; font-size: 45px; display: none; }
 
-        #area-resultado { height: 60px; display: flex; align-items: center; justify-content: center; }
-        .resultado-texto { font-size: 40px; font-weight: 900; text-transform: uppercase; display: none; animation: pop 0.4s ease-out; }
+        #area-resultado { height: 50px; display: flex; align-items: center; justify-content: center; }
+        .resultado-texto { font-size: 40px; font-weight: 900; display: none; animation: pop 0.4s ease-out; }
         @keyframes pop { 0% { transform: scale(0); } 100% { transform: scale(1.1); } }
 
-        .footer-tools { background: rgba(255,255,255,0.05); border-radius: 25px; padding: 12px; margin-top: auto; position: relative; }
-        select { width: 100%; padding: 12px; background: #1a1e23; color: white; border-radius: 10px; border: none; font-weight: bold; margin-bottom: 10px; font-size: 12px; }
-        
+        .footer-tools { background: rgba(255,255,255,0.05); border-radius: 25px; padding: 10px; margin-top: auto; position: relative; }
+        select { width: 100%; padding: 10px; background: #1a1e23; color: white; border-radius: 10px; border: none; font-weight: bold; margin-bottom: 10px; font-size: 11px; }
         .assinatura { position: absolute; bottom: 5px; right: 15px; font-size: 10px; color: white; font-weight: bold; opacity: 0.8; }
     </style>
 </head>
 <body>
 
     <div id="celular">
-        <div class="header"><h1 class="logo-text"><b></b>K.C📈M</v></h1></div>
+        <div class="header">
+            <div class="logo-container">K.C<span class="logo-icon">📈</span>M</div>
+        </div>
 
         <div class="termometro-container"><div id="barra-pressao">50%</div></div>
-        
         <div id="visor-velas"></div>
-
-        <div id="balao-instrucao" style="background: #222; color: #555;">AGUARDANDO...</div>
-
+        <div id="balao-instrucao" style="background: #222; color: #555;">ANALISANDO...</div>
         <div id="timer">00</div>
         <div id="preco">0.00000</div>
 
@@ -74,7 +76,7 @@
                 <span style="color:var(--neon-red)">L: <span id="reds">0</span></span>
             </div>
             <select id="moeda-select" onchange="mudarMoeda()">
-                <optgroup label="PARES PRINCIPAIS">
+                <optgroup label="PRINCIPAIS (MAJORS)">
                     <option value="frxEURUSD">EUR / USD</option>
                     <option value="frxGBPUSD">GBP / USD</option>
                     <option value="frxUSDJPY">USD / JPY</option>
@@ -84,20 +86,25 @@
                     <option value="frxNZDUSD">NZD / USD</option>
                 </optgroup>
                 <optgroup label="CRUZADOS / OTC">
+                    <option value="frxUSDBRL">USD / BRL (OTC)</option>
                     <option value="frxEURGBP">EUR / GBP</option>
                     <option value="frxEURJPY">EUR / JPY</option>
                     <option value="frxGBPJPY">GBP / JPY</option>
                     <option value="frxAUDJPY">AUD / JPY</option>
                     <option value="frxEURAUD">EUR / AUD</option>
-                    <option value="frxUSDBRL">USD / BRL (OTC)</option>
-                    <option value="frxEURCHF">EUR / CHF</option>
-                    <option value="frxGBPCHF">GBP / CHF</option>
+                    <option value="frxGBPAUD">GBP / AUD</option>
+                    <option value="frxAUDCAD">AUD / CAD</option>
+                    <option value="frxEURNZD">EUR / NZD</option>
+                    <option value="frxCADJPY">CAD / JPY</option>
                 </optgroup>
-                <optgroup label="VOLATILIDADE">
+                <optgroup label="ÍNDICES VOLATILIDADE">
                     <option value="R_10">VOLATILITY 10</option>
                     <option value="R_25">VOLATILITY 25</option>
                     <option value="R_50">VOLATILITY 50</option>
+                    <option value="R_75">VOLATILITY 75</option>
                     <option value="R_100">VOLATILITY 100</option>
+                    <option value="1HZ10V">VOLATILITY 10 (1s)</option>
+                    <option value="1HZ100V">VOLATILITY 100 (1s)</option>
                 </optgroup>
             </select>
             <div class="assinatura">Aridelson B.</div>
@@ -116,6 +123,16 @@
             options: { responsive: true, maintainAspectRatio: false, scales: { y: { display: false }, x: { display: false } }, plugins: { legend: { display: false } } }
         });
 
+        function tocarSom(tipo) {
+            const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+            const g = audioCtx.createGain(); const o = audioCtx.createOscillator();
+            o.connect(g); g.connect(audioCtx.destination);
+            if(tipo === 'alerta') { o.type = 'sine'; o.frequency.setValueAtTime(880, audioCtx.currentTime); o.frequency.exponentialRampToValueAtTime(10, audioCtx.currentTime + 0.5); g.gain.setValueAtTime(0.1, audioCtx.currentTime); }
+            else if(tipo === 'green') { o.type = 'triangle'; o.frequency.setValueAtTime(440, audioCtx.currentTime); o.frequency.linearRampToValueAtTime(880, audioCtx.currentTime + 0.2); g.gain.setValueAtTime(0.1, audioCtx.currentTime); }
+            else if(tipo === 'red') { o.type = 'sawtooth'; o.frequency.setValueAtTime(200, audioCtx.currentTime); o.frequency.linearRampToValueAtTime(50, audioCtx.currentTime + 0.3); g.gain.setValueAtTime(0.05, audioCtx.currentTime); }
+            o.start(); o.stop(audioCtx.currentTime + 0.5);
+        }
+
         function conectar(ativo) {
             if (socket) socket.close();
             socket = new WebSocket('wss://ws.binaryws.com/websockets/v3?app_id=1089');
@@ -123,116 +140,51 @@
             socket.onmessage = (msg) => {
                 const data = JSON.parse(msg.data);
                 if (data.tick) {
-                    const preco = data.tick.quote;
-                    const segs = new Date().getSeconds();
+                    const preco = data.tick.quote, segs = new Date().getSeconds();
                     if (precosVela.length === 0) precosVela.push(preco);
-                    
                     document.getElementById('timer').innerText = (60 - segs).toString().padStart(2, '0');
                     document.getElementById('preco').innerText = preco.toFixed(5);
-                    chart.data.datasets[0].data.push(preco);
-                    chart.data.datasets[0].data.shift();
-                    chart.update('none');
-
+                    chart.data.datasets[0].data.push(preco); chart.data.datasets[0].data.shift(); chart.update('none');
                     const ab = precosVela[0];
-                    let pct = 50 + ((preco - ab) / 0.00014 * 50);
+                    let pct = 50 + ((preco - ab) / 0.00012 * 50);
                     pct = Math.max(5, Math.min(95, pct));
-                    
                     atualizarTermometro(pct);
-
-                    if (segs === 57 && !tocadoAlerta) { bip(800); tocadoAlerta = true; }
-                    if (segs >= 40) processarSinal(preco, ab, pct, segs);
+                    if (segs === 57 && !tocadoAlerta && (pct >= 60 || pct <= 40)) { tocarSom('alerta'); tocadoAlerta = true; }
+                    if (segs >= 40) processarSinal(pct, segs);
                     if (segs === 0 && tocadoAlerta) { fecharVela(preco); tocadoAlerta = false; }
                 }
             };
         }
 
-        function bip(f) { 
-            const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
-            const o = audioCtx.createOscillator(); const g = audioCtx.createGain(); 
-            o.connect(g); g.connect(audioCtx.destination); o.frequency.value = f; 
-            g.gain.setValueAtTime(0.05, audioCtx.currentTime); o.start(); o.stop(audioCtx.currentTime + 0.15); 
-        }
-
         function atualizarTermometro(pct) {
-            const barra = document.getElementById('barra-pressao');
-            barra.style.width = pct + "%";
-            if (pct >= 70) barra.style.background = "var(--neon-green)";
-            else if (pct <= 30) barra.style.background = "var(--neon-red)";
-            else if (pct < 50) barra.style.background = "var(--neon-red)"; 
+            const barra = document.getElementById('barra-pressao'); barra.style.width = pct + "%";
+            if (pct >= 70) barra.style.background = "var(--neon-green)"; else if (pct <= 30) barra.style.background = "var(--neon-red)";
             else barra.style.background = "var(--lime-green)";
             barra.innerText = Math.round(pct) + "%"; 
         }
 
-        function processarSinal(p, ab, pct, segs) {
-            const bSinal = document.getElementById('balao-instrucao');
-            const seta = document.getElementById('seta-indicadora');
-            if (pct >= 70) {
-                ultimoSinal = "CALL";
-                bSinal.style.background = "var(--neon-green)";
-                bSinal.style.color = "#000";
-                bSinal.innerText = (segs >= 58 ? "ENTRE AGORA: " : "PREPARE: ") + "CALL";
-                seta.innerText = "⬆️"; seta.style.color = "var(--neon-green)"; seta.style.display = "block";
-                aguardando = true;
-            } 
-            else if (pct <= 30) {
-                ultimoSinal = "PUT";
-                bSinal.style.background = "var(--neon-red)";
-                bSinal.style.color = "#000";
-                bSinal.innerText = (segs >= 58 ? "ENTRE AGORA: " : "PREPARE: ") + "PUT";
-                seta.innerText = "⬇️"; seta.style.color = "var(--neon-red)"; seta.style.display = "block";
-                aguardando = true;
-            }
-            else {
-                bSinal.style.background = "#222"; bSinal.style.color = "#555";
-                bSinal.innerText = "ANALISANDO...";
-                seta.style.display = "none";
-                ultimoSinal = null;
-            }
+        function processarSinal(pct, segs) {
+            const bSinal = document.getElementById('balao-instrucao'), seta = document.getElementById('seta-indicadora');
+            if (pct >= 60) { ultimoSinal = "CALL"; bSinal.style.background = "var(--neon-green)"; bSinal.innerText = (segs >= 58 ? "ENTRE AGORA: " : "PREPARE: ") + "CALL"; seta.innerText = "⬆️"; seta.style.display = "block"; aguardando = true; }
+            else if (pct <= 40) { ultimoSinal = "PUT"; bSinal.style.background = "var(--neon-red)"; bSinal.innerText = (segs >= 58 ? "ENTRE AGORA: " : "PREPARE: ") + "PUT"; seta.innerText = "⬇️"; seta.style.display = "block"; aguardando = true; }
+            else { bSinal.style.background = "#222"; bSinal.innerText = "ANALISANDO..."; seta.style.display = "none"; ultimoSinal = null; }
         }
 
         function fecharVela(fe) {
-            const ab = precosVela[0];
-            const cor = fe >= ab ? 'verde' : 'vermelha';
+            const ab = precosVela[0], cor = fe >= ab ? 'verde' : 'vermelha';
             if (aguardando && ultimoSinal) {
                 const win = (ultimoSinal === 'CALL' && cor === 'verde') || (ultimoSinal === 'PUT' && cor === 'vermelha');
-                if (win) { wins++; mostrarResultado('green'); } 
-                else { reds++; mostrarResultado('red'); }
+                if (win) { wins++; mostrarResultado('green'); tocarSom('green'); } else { reds++; mostrarResultado('red'); tocarSom('red'); }
                 atualizarPlacar();
             }
-            aguardando = false;
-            dadosVelas.push({ cor });
-            if (dadosVelas.length > 10) dadosVelas.shift();
-            atualizarVelas();
-            precosVela = [fe];
+            aguardando = false; dadosVelas.push({ cor }); if (dadosVelas.length > 10) dadosVelas.shift();
+            atualizarVelas(); precosVela = [fe]; document.getElementById('seta-indicadora').style.display = "none";
         }
 
-        function mostrarResultado(tipo) {
-            const el = document.getElementById('msg-' + tipo);
-            el.style.display = 'block';
-            setTimeout(() => { el.style.display = 'none'; }, 2500);
-        }
-
-        function atualizarVelas() {
-            const c = document.getElementById('visor-velas');
-            c.innerHTML = '';
-            dadosVelas.forEach(v => {
-                const b = document.createElement('div');
-                b.className = `barra ${v.cor}`;
-                c.appendChild(b);
-            });
-        }
-
-        function atualizarPlacar() {
-            document.getElementById('wins').innerText = wins;
-            document.getElementById('reds').innerText = reds;
-            let t = wins + reds; document.getElementById('hit').innerText = (t > 0 ? ((wins/t)*100).toFixed(0) : 0) + "%";
-        }
-
-        function mudarMoeda() {
-            wins=0; reds=0; dadosVelas=[]; precosVela=[]; atualizarPlacar();
-            conectar(document.getElementById('moeda-select').value);
-        }
-
+        function mostrarResultado(tipo) { const el = document.getElementById('msg-' + tipo); el.style.display = 'block'; setTimeout(() => { el.style.display = 'none'; }, 2500); }
+        function atualizarVelas() { const c = document.getElementById('visor-velas'); c.innerHTML = ''; dadosVelas.forEach(v => { const b = document.createElement('div'); b.className = `barra ${v.cor}`; c.appendChild(b); }); }
+        function atualizarPlacar() { document.getElementById('wins').innerText = wins; document.getElementById('reds').innerText = reds; let t = wins + reds; document.getElementById('hit').innerText = (t > 0 ? ((wins/t)*100).toFixed(0) : 0) + "%"; }
+        function mudarMoeda() { wins=0; reds=0; dadosVelas=[]; precosVela=[]; atualizarPlacar(); conectar(document.getElementById('moeda-select').value); }
         conectar('frxEURUSD');
     </script>
 </body>
