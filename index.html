@@ -17,15 +17,15 @@
         .barra { width: 14px; height: 28px; border-radius: 3px; }
         .verde { background: var(--neon-green); box-shadow: 0 0 10px var(--neon-green); }
         .vermelha { background: var(--neon-red); box-shadow: 0 0 10px var(--neon-red); }
-        #balao-instrucao { padding: 20px; border-radius: 15px; font-size: 20px; font-weight: 900; text-align: center; margin-bottom: 10px; border: 2px solid rgba(255,255,255,0.1); min-height: 80px; display: flex; align-items: center; justify-content: center; background: #111; }
-        #timer { font-size: 85px; font-weight: bold; text-align: center; line-height: 1; }
+        #balao-instrucao { padding: 20px; border-radius: 15px; font-size: 19px; font-weight: 900; text-align: center; margin-bottom: 10px; border: 2px solid rgba(255,255,255,0.1); min-height: 80px; display: flex; align-items: center; justify-content: center; background: #111; line-height: 1.2; }
+        #timer { font-size: 85px; font-weight: bold; text-align: center; line-height: 1; margin: 5px 0; }
         #preco { font-size: 24px; color: var(--gale); font-weight: bold; text-align: center; font-family: monospace; margin-bottom: 5px; }
-        #grafico-container { height: 120px; position: relative; }
+        #grafico-container { height: 110px; position: relative; }
         #area-resultado { height: 60px; display: flex; align-items: center; justify-content: center; }
-        .resultado-texto { font-size: 45px; font-weight: 900; display: none; z-index: 10; }
+        .resultado-texto { font-size: 45px; font-weight: 900; display: none; }
         .footer-tools { background: rgba(255,255,255,0.05); border-radius: 25px; padding: 12px; margin-top: auto; }
-        select { width: 100%; padding: 10px; background: #1a1e23; color: white; border-radius: 10px; border: 1px solid #444; font-size: 12px; margin-top: 5px; }
-        .assinatura { text-align: right; font-size: 12px; font-weight: bold; color: #555; margin-top: 5px; padding-right: 10px; }
+        select { width: 100%; padding: 12px; background: #1a1e23; color: white; border-radius: 10px; border: 1px solid #444; font-size: 13px; font-weight: bold; }
+        .assinatura { text-align: right; font-size: 13px; font-weight: bold; color: #666; margin-top: 8px; padding-right: 10px; letter-spacing: 1px; }
     </style>
 </head>
 <body>
@@ -34,7 +34,7 @@
         <div class="header"><div class="logo-container">K.C📈M</div></div>
         <div class="termometro-container"><div id="barra-pressao">50%</div></div>
         <div id="visor-velas"></div>
-        <div id="balao-instrucao">ANALISANDO...</div>
+        <div id="balao-instrucao">ANALISANDO MERCADO...</div>
         <div id="timer">00</div>
         <div id="preco">0.00000</div>
         <div id="grafico-container"><canvas id="realTimeChart"></canvas></div>
@@ -43,32 +43,33 @@
             <div id="msg-red" class="resultado-texto" style="color: var(--neon-red);">RED! ❌</div>
         </div>
         <div class="footer-tools">
-            <div style="display: flex; justify-content: space-around; font-weight: bold; margin-bottom: 5px;">
+            <div style="display: flex; justify-content: space-around; font-weight: bold; margin-bottom: 8px;">
                 <span style="color:var(--neon-green)">W: <span id="wins">0</span></span>
                 <span id="hit" style="color: var(--gale)">100%</span>
                 <span style="color:var(--neon-red)">L: <span id="reds">0</span></span>
             </div>
             <select id="moeda-select" onchange="mudarMoeda()">
-                <optgroup label="Forex">
+                <optgroup label="Forex (Pares Principais)">
                     <option value="frxEURUSD">EUR / USD</option>
                     <option value="frxGBPUSD">GBP / USD</option>
                     <option value="frxUSDJPY">USD / JPY</option>
-                    <option value="frxEURGBP">EUR / GBP</option>
                     <option value="frxAUDUSD">AUD / USD</option>
-                    <option value="frxUSDBRL">USD / BRL (OTC)</option>
+                    <option value="frxEURGBP">EUR / GBP</option>
+                    <option value="frxUSDCAD">USD / CAD</option>
                 </optgroup>
-                <optgroup label="Sintéticos / Volatilidade">
+                <optgroup label="Volatilidade (Deriv/Binary)">
                     <option value="R_10">Volatility 10</option>
                     <option value="R_25">Volatility 25</option>
                     <option value="R_50">Volatility 50</option>
                     <option value="R_75">Volatility 75</option>
                     <option value="R_100">Volatility 100</option>
-                    <option value="1HZ10V">Volatility 10 (1s)</option>
-                    <option value="1HZ100V">Volatility 100 (1s)</option>
+                    <option value="1HZ10V">V10 (1 segundo)</option>
+                    <option value="1HZ100V">V100 (1 segundo)</option>
                 </optgroup>
-                <optgroup label="Cripto">
-                    <option value="cryBTCUSD">BITCOIN / USD</option>
-                    <option value="cryETHUSD">ETHEREUM / USD</option>
+                <optgroup label="Criptomoedas">
+                    <option value="cryBTCUSD">BTC / USD</option>
+                    <option value="cryETHUSD">ETH / USD</option>
+                    <option value="cryLTCUSD">LTC / USD</option>
                 </optgroup>
             </select>
             <div class="assinatura">Aridelson B.</div>
@@ -102,6 +103,7 @@
                     document.getElementById('timer').innerText = (60 - segs).toString().padStart(2, '0');
                     document.getElementById('preco').innerText = preco.toFixed(5);
                     chart.data.datasets[0].data.push(preco); chart.data.datasets[0].data.shift(); chart.update('none');
+                    
                     let pct = 50 + ((preco - precosVela[0]) / 0.00012 * 50);
                     pct = Math.max(5, Math.min(95, pct));
                     atualizarTermometro(pct);
@@ -121,14 +123,23 @@
         function atualizarTermometro(pct) {
             const barra = document.getElementById('barra-pressao');
             barra.style.width = pct + "%";
-            barra.style.background = pct >= 80 ? "var(--neon-green)" : pct <= 20 ? "var(--neon-red)" : "var(--gale)";
+            barra.style.background = pct >= 75 ? "var(--neon-green)" : pct <= 25 ? "var(--neon-red)" : "var(--gale)";
             barra.innerText = Math.round(pct) + "%"; 
         }
 
         function identificarSinal(pct) {
             const bSinal = document.getElementById('balao-instrucao');
-            if (pct >= 85) { sinalIdentificado = "CALL"; bSinal.innerText = "PREPARE CALL (AGUARDE TAXA)"; bSinal.style.background = "var(--gale)"; bSinal.style.color = "#000"; }
-            else if (pct <= 15) { sinalIdentificado = "PUT"; bSinal.innerText = "PREPARE PUT (AGUARDE TAXA)"; bSinal.style.background = "var(--gale)"; bSinal.style.color = "#000"; }
+            // CALIBRAGEM 75% CONFORME SOLICITADO
+            if (pct >= 75) { 
+                sinalIdentificado = "CALL"; 
+                bSinal.innerText = "FORÇA COMPRADORA! AGUARDE A RETRAÇÃO..."; 
+                bSinal.style.background = "var(--gale)"; bSinal.style.color = "#000"; 
+            }
+            else if (pct <= 25) { 
+                sinalIdentificado = "PUT"; 
+                bSinal.innerText = "FORÇA VENDEDORA! AGUARDE A RETRAÇÃO..."; 
+                bSinal.style.background = "var(--gale)"; bSinal.style.color = "#000"; 
+            }
         }
 
         function verificarGatilhoRetracao(precoAtual, segs) {
@@ -139,14 +150,13 @@
                 (sinalIdentificado === "PUT" && precoAtual >= (precosVela[0] + alvoRetracao))) {
                 
                 let tipo = sinalIdentificado;
-                bSinal.innerText = "ENTRE AGORA: " + tipo + "!";
+                bSinal.innerText = "FAÇA A ENTRADA AGORA!";
                 bSinal.style.background = tipo === "CALL" ? "var(--neon-green)" : "var(--neon-red)";
                 bSinal.style.color = "#000";
                 
-                // Segura a mensagem de entrada por 2 segundos antes de iniciar o contador de 60s
                 setTimeout(() => { if(!operacaoAtiva) iniciarOperacao(precoAtual, tipo); }, 1500);
             } else {
-                bSinal.innerText = `BUSCANDO MELHOR TAXA... (${30 - segs}s)`;
+                bSinal.innerText = `BUSCANDO TAXA... (${30 - segs}s)`;
                 bSinal.style.background = "#111"; bSinal.style.color = "#fff";
             }
         }
@@ -177,8 +187,7 @@
                 galeAtual++;
                 bSinal.innerText = `GALE ${galeAtual}: ENTRE NO ${opAnterior} AGORA!`;
                 bSinal.style.background = "var(--gale)"; bSinal.style.color = "#000";
-                // Inicia o Gale após 3 segundos da mensagem de erro
-                setTimeout(() => { iniciarOperacao(precoFinal, opAnterior); }, 3000);
+                setTimeout(() => { iniciarOperacao(precoFinal, opAnterior); }, 2500);
             } else {
                 reds++; mostrarResultado('red'); galeAtual = 0;
                 resetBalao(bSinal);
@@ -188,7 +197,11 @@
         }
 
         function resetBalao(el) {
-            setTimeout(() => { el.innerText = "ANALISANDO..."; el.style.background = "#111"; el.style.color = "#fff"; }, 3500);
+            setTimeout(() => { 
+                if (tempoRestanteOperacao <= 0) {
+                    el.innerText = "ANALISANDO MERCADO..."; el.style.background = "#111"; el.style.color = "#fff"; 
+                }
+            }, 3500);
         }
 
         function abortarSinal() {
